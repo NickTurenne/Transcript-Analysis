@@ -1,4 +1,4 @@
-Term:,Course:,Desc:,Repeated:,Units: ,Grade:,Grade Points:,Class Average:,Class enrollment:
+Term,Course,Desc,Repeated,Units,Grade,GradePoints,ClassAverage,ClassEnrollment
 2020 Fall,CMPT 128,Intro. Cmpt.Sci/Prgm/Engineers,EXCM,0,A-,0,C+,140
 2020 Fall,ENSC 100W,"Engineering, Science & Society",,3,B+,9.99,B,138
 2020 Fall,ENSC 105W,Process of Prof. Writing,,3,A-,11.01,B,136
