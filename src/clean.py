@@ -22,24 +22,24 @@ def convert_grade_to_GPA(grade: str) -> int:
     else:
         return 0.0
     
-def convert_term_to_year(term: str) -> str:
+def convert_term_to_year(term: str) -> int:
         year = term.split()[0]
-        return year
+        return int(year)
 
 def convert_course_to_dept(course: str) -> str:
      dept = course.split()[0]
      return dept
 
-def convert_coures_to_level(course: str) -> str:
+def convert_coures_to_level(course: str) -> int:
      level = course.split()[1]
      match level[0]:
           case "1":
-               return "100"
+               return 100
           case "2":
-               return "200"
+               return 200
           case "3":
-               return "300"
+               return 300
           case "4":
-               return "400"
+               return 400
           case _:
-               return "n/a"
+               return 0
