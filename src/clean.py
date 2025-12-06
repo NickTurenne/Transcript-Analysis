@@ -14,6 +14,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["Year"] = df["Term"].apply(convert_term_to_year)
     df["Dept"] = df["Course"].apply(convert_course_to_dept)
     df["CourseLevel"] = df["Course"].apply(convert_coures_to_level)
+    df["Season"] = df["Term"].apply(convert_term_to_season)
     return df
 
 def convert_grade_to_GPA(grade: str) -> int:
@@ -43,3 +44,7 @@ def convert_coures_to_level(course: str) -> int:
                return 400
           case _:
                return 0
+          
+def convert_term_to_season(course: str) -> str:
+     season = course.split()[0]
+     return season
