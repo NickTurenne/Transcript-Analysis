@@ -10,7 +10,7 @@ LETTER_GRADES_TO_GPA_SFU = {
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["GradePoint"] = df["Grade"].apply(convert_grade_to_GPA)
-    df["ClassAvgGradePoint:"] = df["Class Average"].apply(convert_grade_to_GPA)
+    df["ClassAvgGradePoint:"] = df["ClassAverage"].apply(convert_grade_to_GPA)
     df["Year"] = df["Term"].apply(convert_term_to_year)
     df["Dept"] = df["Course"].apply(convert_course_to_dept)
     df["CourseLevel"] = df["Course"].apply(convert_coures_to_level)
@@ -18,8 +18,9 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def convert_grade_to_GPA(grade: str) -> int:
-    if LETTER_GRADES_TO_GPA_SFU.__contains__(grade):
-        return LETTER_GRADES_TO_GPA_SFU[grade]
+    grade_stripped = grade.strip()
+    if LETTER_GRADES_TO_GPA_SFU.__contains__(grade_stripped):
+        return LETTER_GRADES_TO_GPA_SFU[grade_stripped]
     else:
         return 0.0
     
@@ -46,5 +47,5 @@ def convert_coures_to_level(course: str) -> int:
                return 0
           
 def convert_term_to_season(course: str) -> str:
-     season = course.split()[0]
+     season = course.split()[1]
      return season
