@@ -10,7 +10,7 @@ LETTER_GRADES_TO_GPA_SFU = {
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["GradePoint"] = df["Grade"].apply(convert_grade_to_GPA)
-    df["ClassAvgGradePoint:"] = df["ClassAverage"].apply(convert_grade_to_GPA)
+    df["ClassAvgGradePoint"] = df["ClassAverage"].apply(convert_grade_to_GPA)
     df["Year"] = df["Term"].apply(convert_term_to_year)
     df["Dept"] = df["Course"].apply(convert_course_to_dept)
     df["CourseLevel"] = df["Course"].apply(convert_coures_to_level)
