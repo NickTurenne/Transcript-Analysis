@@ -17,6 +17,10 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["Season"] = df["Term"].apply(convert_term_to_season)
     return df
 
+def drop_non_GPA_courses(df: pd.DataFrame) -> pd.DataFrame:
+     # Pass/fail courses do not count to GPA, EXCM means repeated and excluded
+     return df[(df["Grade"] != "P") & (df["Repeated"] != "EXCM")]
+
 def convert_grade_to_GPA(grade: str) -> int:
     grade_stripped = grade.strip()
     if LETTER_GRADES_TO_GPA_SFU.__contains__(grade_stripped):
