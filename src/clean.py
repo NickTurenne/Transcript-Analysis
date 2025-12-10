@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 LETTER_GRADES_TO_GPA_SFU = {
     "A+": 4.33, "A": 4.0, "A-": 3.67,
@@ -15,6 +16,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["Dept"] = df["Course"].apply(convert_course_to_dept)
     df["CourseLevel"] = df["Course"].apply(convert_coures_to_level)
     df["Season"] = df["Term"].apply(convert_term_to_season)
+    df["DifficultyIndex"] = df["GradePoint"].apply(lambda x: get_difficulty_index(x, compute_gpa_average(df), compute_standard_deviation(df)))
     return df
 
 def drop_non_GPA_courses(df: pd.DataFrame) -> pd.DataFrame:
@@ -53,3 +55,17 @@ def convert_coures_to_level(course: str) -> int:
 def convert_term_to_season(course: str) -> str:
      season = course.split()[1]
      return season
+
+def compute_gpa_average(df: pd.DataFrame) -> float:
+     df_grade_filtered = df[(df["Grade"] != "P") & (df["Repeated"] != "EXCM")]
+     gpa_average = (df_grade_filtered["GradePoints"].sum() / df_grade_filtered["Units"].sum())
+     return gpa_average
+
+def compute_standard_deviation(df: pd.DataFrame) -> float:
+     df_grade_filtered = df[(df["Grade"] != "P") & (df["Repeated"] != "EXCM")]
+     avg = compute_gpa_average(df)
+     variance = (df_grade_filtered["Units"] * (df_grade_filtered["GradePoints"] - avg) ** 2).sum() / df_grade_filtered["Units"].sum()
+     return np.sqrt(variance)
+
+def get_difficulty_index(grade: float, average: float, sigma: float) -> float:
+     return ((grade - average) / sigma)
