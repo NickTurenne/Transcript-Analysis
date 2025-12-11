@@ -2,7 +2,10 @@ import pandas as pd
 
 # My averages
 def gpa_per_term(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Term").apply(lambda x: weighted_gpa(x)).reset_index("TermGPA")
+    return df.groupby("Term", as_index=False).agg(
+        TermGPA=("GradePoint", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        TermIndex=("TermIndex", "mean")
+    )
 
 def gpa_per_year(df: pd.DataFrame) -> pd.DataFrame:
     return df.groupby("Year").apply(lambda x: weighted_gpa(x)).reset_index("YearGPA")
@@ -17,7 +20,10 @@ def weighted_gpa(df: pd.DataFrame) -> float:
 
 # Class averages
 def gpa_per_term_class_averages(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Term").apply(lambda x: weighted_gpa_class_averages(x)).reset_index("TermGPAAverages")
+    return df.groupby("Term", as_index=False).agg(
+        ClassAverageGPATerm=("ClassAvgGradePoint", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        TermIndex=("TermIndex", "mean")
+    )
 
 def gpa_per_year_class_averages(df: pd.DataFrame) -> pd.DataFrame:
     return df.groupby("Year").apply(lambda x: weighted_gpa_class_averages(x)).reset_index("YearGPAAverages")
