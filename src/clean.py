@@ -9,6 +9,12 @@ LETTER_GRADES_TO_GPA_SFU = {
     "N": 0.0, "P": 0.0
 }
 
+TERM_ORDER = {
+     "Spring" : 0,
+     "Summer" : 1,
+     "Fall" : 2
+}
+
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["GradePoint"] = df["Grade"].apply(convert_grade_to_GPA)
     df["ClassAvgGradePoint"] = df["ClassAverage"].apply(convert_grade_to_GPA)
@@ -17,6 +23,9 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["CourseLevel"] = df["Course"].apply(convert_coures_to_level)
     df["Season"] = df["Term"].apply(convert_term_to_season)
     df["DifficultyIndex"] = df["GradePoint"].apply(lambda x: get_difficulty_index(x, compute_gpa_average(df), compute_standard_deviation(df)))
+    
+    df["SeasonOrder"] = df["Season"].map(TERM_ORDER)
+    df["TermIndex"] = (df["Year"] * 10) + df["SeasonOrder"]
     return df
 
 def drop_non_GPA_courses(df: pd.DataFrame) -> pd.DataFrame:
