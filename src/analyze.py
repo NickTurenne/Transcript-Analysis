@@ -1,37 +1,41 @@
 import pandas as pd
 
-# My averages
+# Averages
 def gpa_per_term(df: pd.DataFrame) -> pd.DataFrame:
     return df.groupby("Term", as_index=False).agg(
-        TermGPA=("GradePoint", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        TermGPA=("GradePoints", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        ClassAverageGPATerm=("ClassAvgGradePoint", lambda x: (x * df.loc[x.index, "Units"]).sum() / df.loc[x.index, "Units"].sum()),
         TermIndex=("TermIndex", "mean")
     )
 
 def gpa_per_year(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Year").apply(lambda x: weighted_gpa(x)).reset_index("YearGPA")
-
-def gpa_per_dept(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Dept").apply(lambda x: weighted_gpa(x)).reset_index("DeptGPA")
-
-def weighted_gpa(df: pd.DataFrame) -> float:
-    total_grade_points = df["GradePoints"].sum()
-    total_units = df["Units"].sum()
-    return total_grade_points / total_units
-
-# Class averages
-def gpa_per_term_class_averages(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Term", as_index=False).agg(
-        ClassAverageGPATerm=("ClassAvgGradePoint", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
-        TermIndex=("TermIndex", "mean")
+    return df.groupby("Year", as_index=False).agg(
+        YearGPA=("GradePoints", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        YearGPAAverages=("ClassAvgGradePoint", lambda x: (x * df.loc[x.index, "Units"]).sum() / df.loc[x.index, "Units"].sum())
     )
 
-def gpa_per_year_class_averages(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Year").apply(lambda x: weighted_gpa_class_averages(x)).reset_index("YearGPAAverages")
+def gpa_per_dept(df: pd.DataFrame) -> pd.DataFrame:
+    return df.groupby("Dept", as_index=False).agg(
+        DeptGPA=("GradePoints", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        DeptGPAAverages=("ClassAvgGradePoint", lambda x: (x * df.loc[x.index, "Units"]).sum() / df.loc[x.index, "Units"].sum())
+    ).melt(id_vars="Dept",
+           value_vars=["DeptGPA", "DeptGPAAverages"],
+           var_name="Type",
+           value_name="GPA")
 
-def gpa_per_dept_class_averages(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby("Dept").apply(lambda x: weighted_gpa_class_averages(x)).reset_index("TermGPAAverages")
+def gpe_by_course_level(df: pd.DataFrame) -> pd.DataFrame:
+    return df.groupby("CourseLevel", as_index=False).agg(
+        LevelGPA=("GradePoints", lambda x: x.sum() / df.loc[x.index, "Units"].sum()),
+        LevelGPAAverages=("ClassAvgGradePoint", lambda x: (x * df.loc[x.index, "Units"]).sum() / df.loc[x.index, "Units"].sum())
+    ).melt(id_vars="CourseLevel",
+           value_vars=["LevelGPA", "LevelGPAAverages"],
+           var_name="Type",
+           value_name="GPA")
 
-def weighted_gpa_class_averages(df: pd.DataFrame) -> float:
-    total_grade_points_average = (df["ClassAvgGradePoint"] * df["Units"]).sum()
-    total_units = df["Units"].sum()
-    return total_grade_points_average / total_units
+# Correlation
+def get_corr_matrix(df: pd.DataFrame) -> pd.DataFrame:
+    renames = {"GradePoint": "My Grades", 
+               "CourseLevel": "Course Level",
+               "ClassAvgGradePoint": "Class Average Grades"}
+    df_ret = df.rename(columns=renames)
+    return df_ret[["My Grades", "Units", "Course Level", "Year", "Class Average Grades"]].corr().map(lambda x: x*10)
