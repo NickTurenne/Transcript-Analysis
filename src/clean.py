@@ -23,7 +23,8 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     df["CourseLevel"] = df["Course"].apply(convert_coures_to_level)
     df["Season"] = df["Term"].apply(convert_term_to_season)
     df["DifficultyIndex"] = df["GradePoint"].apply(lambda x: get_difficulty_index(x, compute_gpa_average(df), compute_standard_deviation(df)))
-    
+    str_cols = df.select_dtypes(include="object").columns
+    df[str_cols] = df[str_cols].apply(lambda col: col.str.strip())
     df["SeasonOrder"] = df["Season"].map(TERM_ORDER)
     df["TermIndex"] = (df["Year"] * 10) + df["SeasonOrder"]
     return df

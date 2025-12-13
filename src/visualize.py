@@ -57,7 +57,7 @@ def plot_GPA_by_course_level(df: pd.DataFrame):
         "LevelGPAAverages": "red"
     }
     
-    df_course_gpa = an.gpe_by_course_level(df)
+    df_course_gpa = an.gpa_by_course_level(df)
     plt.rc('font', family='Arial')
     plt.figure(figsize=(15,6))
     plt.title("GPA by Course Level Compared to Averages")
@@ -77,3 +77,22 @@ def plot_corr_matrix(df: pd.DataFrame):
     plt.title("Relationship between GPA and other Factors")
     sns.heatmap(df_corr, annot=True)
     plt.xticks(rotation=45, ha='right')
+
+def plot_hardest_and_easiest_courses(df: pd.DataFrame):
+    df_combined = pd.concat([df.nlargest(10, "DifficultyIndex"), df.nsmallest(10, "DifficultyIndex")])
+    plt.rc('font', family='Arial')
+    plt.figure(figsize=(15,6))
+    plt.title("Ten Easiest and Hardest Courses Based on Difficulty Index")
+    plt.ylabel("Difficulty")
+    plt.xlabel("Course")
+    sns.barplot(data=df_combined, x="Desc", y="DifficultyIndex", color='purple')
+    plt.xticks(rotation=45, ha='right')
+
+def plot_GPA_by_credit_load(df: pd.DataFrame):
+    df_terms = an.gpa_by_credit_load(df)
+    plt.rc('font', family='Arial')
+    plt.figure(figsize=(10,6))
+    plt.title("GPA by Credit Load per Term")
+    plt.ylabel("GPA")
+    plt.xlabel("Credit Load")
+    sns.barplot(data=df_terms, x="TotalUnits", y="CreditLoadGPA", color='purple')
