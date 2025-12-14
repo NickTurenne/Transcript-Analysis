@@ -45,3 +45,7 @@ def get_corr_matrix(df: pd.DataFrame) -> pd.DataFrame:
                "ClassAvgGradePoint": "Class Average Grades"}
     df_ret = df.rename(columns=renames)
     return df_ret[["My Grades", "Units", "Course Level", "Year", "Class Average Grades"]].corr().map(lambda x: x*10)
+
+# Cumulative GPA calculation
+def get_cum_gpa(df: pd.DataFrame) -> float:
+    return df["GradePoints"].sum() / df["Units"].sum()

@@ -13,8 +13,9 @@ def plot_GPA_by_term(df: pd.DataFrame):
     plt.title("GPA by Term Compared to Averages")
     plt.ylabel("GPA")
     plt.xlabel("Term")
-    sns.lineplot(data=df_term_gpa, x="PlotIndex", y="TermGPA", label="My GPA", color='purple')
-    sns.lineplot(data=df_term_gpa, x="PlotIndex", y="ClassAverageGPATerm", label="Class Average GPA", color='red')
+    plt.axhline(y=an.get_cum_gpa(df), color='green', label="My Cumulative GPA", alpha=0.4, linestyle=':')
+    sns.lineplot(data=df_term_gpa, x="PlotIndex", y="TermGPA", label="My GPA per Term", color='purple')
+    sns.lineplot(data=df_term_gpa, x="PlotIndex", y="ClassAverageGPATerm", label="Class Average GPA per Term", color='red')
     _ = plt.xticks(
         ticks=df_term_gpa["PlotIndex"],
         labels=df_term_gpa["Term"],
@@ -28,8 +29,9 @@ def plot_GPA_by_year(df: pd.DataFrame):
     plt.title("GPA by Year Compared to Averages")
     plt.ylabel("GPA")
     plt.xlabel("Year")
-    sns.lineplot(data=df_year_gpa, x="Year", y="YearGPA", label="My GPA", color='purple')
-    sns.lineplot(data=df_year_gpa, x="Year", y="YearGPAAverages", label="Class Average GPA", color='red')
+    plt.axhline(y=an.get_cum_gpa(df), color='green', label="My Cumulative GPA", alpha=0.4, linestyle=':')
+    sns.lineplot(data=df_year_gpa, x="Year", y="YearGPA", label="My GPA per Year", color='purple')
+    sns.lineplot(data=df_year_gpa, x="Year", y="YearGPAAverages", label="Class Average GPA per Year", color='red')
 
 def plot_GPA_by_dept(df: pd.DataFrame):
     palette = {
@@ -43,7 +45,6 @@ def plot_GPA_by_dept(df: pd.DataFrame):
     plt.title("GPA by Department Compared to Averages")
     plt.ylabel("GPA")
     plt.xlabel("Department")
-    
     chart = sns.barplot(data=df_dept_gpa, x="Dept", y="GPA", hue="Type", palette=palette)
     handles = [
         Patch(facecolor="purple", label="My GPA"),
@@ -63,7 +64,6 @@ def plot_GPA_by_course_level(df: pd.DataFrame):
     plt.title("GPA by Course Level Compared to Averages")
     plt.ylabel("GPA")
     plt.xlabel("Course Level")
-    
     chart = sns.barplot(data=df_course_gpa, x="CourseLevel", y="GPA", hue="Type", palette=palette)
     handles = [
         Patch(facecolor="purple", label="My GPA"),

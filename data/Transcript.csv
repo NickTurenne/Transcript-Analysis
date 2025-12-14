@@ -2,24 +2,30 @@ Term,Course,Desc,Repeated,Units,Grade,GradePoints,ClassAverage,ClassEnrollment
 2020 Fall,CMPT 128,Intro. Cmpt.Sci/Prgm/Engineers,EXCM,0,A-,0,C+,140
 2020 Fall,ENSC 100W,"Engineering, Science & Society",,3,B+,9.99,B,138
 2020 Fall,ENSC 105W,Process of Prof. Writing,,3,A-,11.01,B,136
-2020 Fall,MATH 150,"Calculus I with Review",,4,B+,13.32,B-,278
+2020 Fall,MATH 150,"Calculus I with Review
+",,4,B+,13.32,B-,278
 2020 Fall,PHYS 120,Mechanics and Modern Physics,,3,B+,9.99,B-,263
 2021 Spring,ENSC 120,Intro to Instrumentation,,2,P,0,-,102
 2021 Spring,ENSC 180,Introduction to Engineering An,,3,B+,9.99,B,114
 2021 Spring,MATH 152,Calculus II,,3,B ,9,B-,328
 2021 Spring,MATH 232,Applied Linear Algebra,,3,B+,9.99,B-,236
 2021 Summer,CHEM 120,General Chemistry I,,3,B-,8.01,B-,311
-2021 Summer,CHEM 125,"STT-General Chemistry Lab I",,1,C+,2.33,B+,189
+2021 Summer,CHEM 125,"STT-General Chemistry Lab I
+",,1,C+,2.33,B+,189
 2021 Summer,MATH 260,Intro-Diff.Equations,,3,B,9,B-,113
-2021 Summer,"PHYS 121","Optics, Electricity, Magnetism",,3,B+,9.99,B,92
+2021 Summer,"PHYS 121
+","Optics, Electricity, Magnetism",,3,B+,9.99,B,92
 2021 Summer,PSYC 100,Intro.Psychology I,,3,C+,6.99,B+,234
 2021 Fall,CMPT 120,Intro.Cmpt.Sci/Programming I,REIG,3,A+,12.99,B-,158
-2021 Fall,MACM 101,"Discrete Math I",,3,A-,11.01,B-,139
+2021 Fall,MACM 101,"Discrete Math I
+",,3,A-,11.01,B-,139
 2022 Spring,CMPT 125,Intro.Cmpt.Sci/Programming II,,3,A,12,B-,148
 2022 Spring,STAT 270,Probability and Statistics,,3,A,12,B-,195
-2022 Summer,CMPT 225,"Data Structures/Programming",,3,A-,11.01,B-,135
+2022 Summer,CMPT 225,"Data Structures/Programming
+",,3,A-,11.01,B-,135
 2022 Fall,CMPT 276,Intro Software Engineering,,3,A,12,B+,97
-2022 Fall,CMPT 295,"Intro. to Computer Systems",,3,A,12,B-,146
+2022 Fall,CMPT 295,"Intro. to Computer Systems
+",,3,A,12,B-,146
 2022 Fall,MACM 201,Discrete Math II,,3,A-,11.01,B-,182
 2023 Spring,CMPT 300,Operating Systems I,,3,A,12,B,129
 2023 Spring,CMPT 307,Data Structures,,3,B+,9.99,B,63
@@ -42,5 +48,5 @@ Term,Course,Desc,Repeated,Units,Grade,GradePoints,ClassAverage,ClassEnrollment
 2025 Spring,CMPT 475,Requirements Engineering,,3,A-,11.01,B,83
 2025 Spring,INDG 101,Intro to Indigenous Studies,,3,B+,9.99,B,107
 2025 Summer,CMPT 428,Practicum III,,0,P,0,-,46
-2025 Fall,CMPT 383,Programming Langs.,,3,B+,9.99,B,104
+2025 Fall,CMPT 383,Programming Langs.,,3,A,12,C+,104
 2025 Fall,POL 150,"Science, Policy and Innovation",,3,B,9,B,55
